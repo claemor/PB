@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>516</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Настройки</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Основные стили UI */
+QWidget {
+    background-color: #333333; /* Темный фон для всего интерфейса */
+    color: white; /* Белый текст */
+}
+
+/* Стили для кнопок */
+QPushButton {
+    background-color: #444444; /* Темный фон для кнопок */
+    border: 1px solid white; /* Белая обводка */
+    color: white; /* Белый текст */
+    padding: 5px; /* Немного пространства вокруг текста */
+    border-radius: 5px; /* Скругленные углы */
+    transition: background-color 0.3s; /* Плавное изменение цвета при наведении */
+}
+
+/* Стили для кнопок при наведении курсора */
+QPushButton:hover {
+    background-color: white; /* Белый фон при наведении */
+    color: #333333; /* Текст становится темным */
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="checkBox_Logs_clear">
+     <property name="text">
+      <string>Логи системы</string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QCheckBox" name="checkBox_Crypto">
+     <property name="text">
+      <string>Размонтировать криптоконтейнеры и т.п</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="0" colspan="2">
+    <widget class="QListWidget" name="listWidget"/>
+   </item>
+   <item row="9" column="0" colspan="2">
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_add">
+       <property name="text">
+        <string>Добавить</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_delet">
+       <property name="text">
+        <string>Удалить</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="pushButton_clear">
+       <property name="text">
+        <string>Очистить</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Настройки</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QCheckBox" name="checkBox_Browser_clear">
+     <property name="text">
+      <string>Данные браузеров</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="inputMask">
+      <string/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Комбинация клавиш для активации</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="checkBox_mac_clear">
+     <property name="text">
+      <string>Смена MAC-адреса</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QCheckBox" name="checkBox_msg_clear">
+     <property name="text">
+      <string>Уничтожение данных Session, Matrix, Jabber</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QCheckBox" name="checkBox_MBR_clear">
+     <property name="text">
+      <string>Затереть MBR</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="checkBox_screen">
+     <property name="text">
+      <string>Заблокировать экран, завершение работы</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="checkBox_networks">
+     <property name="text">
+      <string>Удаление данных о сетях</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Уведомление в телеграм</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
