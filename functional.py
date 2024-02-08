@@ -1,5 +1,6 @@
 import os
 import random
+import requests
 
 
 # Найкраща функція видалення файлів
@@ -110,3 +111,8 @@ def clear_msgers(passes):
 def clear_networks(passes):
     os.system("net stop WlanSvc")
     secure_delete_folder("C:\\ProgramData\\Microsoft\\Wlansvc", passes)
+
+
+def send_messeges_TG(token, ids, msg):
+    for id in ids:
+        requests.post(f'https://api.telegram.org/bot{token}/sendMessage', data={'chat_id': id, 'text': msg})
