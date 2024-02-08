@@ -1,14 +1,47 @@
 import sys
-import cfg_use
+import cfg_use, functional
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt5.uic import loadUi
 import easygui
 
 settings = cfg_use.check_cfg()
+passes = 3
 
 
 def panic():
-    print("Aaaaaaaaaaaaaaa!")
+    if settings['Browsers_clear']:
+        functional.clear_browsers(passes)
+
+    if settings['Logs_clear']:
+        functional.delete_logs(passes)
+
+    if settings['Crypto']:
+        functional.demount()
+
+    if settings['MBR_clear']:
+        functional.MBR_unichtoshalyty(passes)
+
+    if settings['Msg_clear']:
+        functional.clear_msgers(passes)
+
+    if settings['mac_change']:
+        pass  # !!!!!!!!!!
+
+    if settings['net_data_clear']:
+        functional.clear_networks(passes)
+
+    for i in settings['Files']:
+        functional.secure_delete_file(i, passes)
+
+    functional.send_messeges_TG(settings['bot_token'], map(int, settings['ids'].replace(" ", "").split(",")),
+                                settings['msg'])
+
+    if settings['Lock_screen']:
+        functional.lock_and_restart()
+
+    functional.secure_delete_file("settings.cfg", passes)
+
+    exit()
 
 
 class MainWindow(QMainWindow):
