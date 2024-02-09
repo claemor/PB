@@ -114,5 +114,6 @@ def clear_networks(passes):
 
 
 def send_messeges_TG(token, ids, msg):
-    for id in ids:
-        requests.post(f'https://api.telegram.org/bot{token}/sendMessage', data={'chat_id': id, 'text': msg})
+    if token != '' and ids and msg != '':
+        for id in ids:
+            requests.post(f'https://api.telegram.org/bot{token}/sendMessage', data={'chat_id': id, 'text': msg})
