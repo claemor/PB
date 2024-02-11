@@ -1,8 +1,11 @@
 import sys
-import cfg_use, functional
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
-from PyQt5.uic import loadUi
 import easygui
+import keyboard
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QSystemTrayIcon, QAction, QMenu
+from PyQt5.uic import loadUi
+import cfg_use
+import functional
 
 settings = cfg_use.check_cfg()
 passes = 3
@@ -40,8 +43,12 @@ def panic():
         functional.lock_and_restart()
 
     functional.secure_delete_file("settings.cfg", passes)
+    window.tray_icon.setVisible(False)
+    app.quit()
 
-    exit()
+
+if settings['Keyboard_shortcut']:
+    keyboard.add_hotkey(settings['Keyboard_shortcut'], panic)
 
 
 class MainWindow(QMainWindow):
@@ -51,10 +58,32 @@ class MainWindow(QMainWindow):
         self.settingsButton.clicked.connect(self.open_settings_window)
         self.punicButton.clicked.connect(panic)
         self.settings_window = None
+        self.tray_icon = QSystemTrayIcon(self)
+        self.tray_icon.setIcon(QIcon("icon.png"))
+        self.tray_icon.setVisible(True)
+
+        show_action = QAction("Показать", self)
+        show_action.triggered.connect(self.showNormal)
+
+        quit_action = QAction("Выйти", self)
+        quit_action.triggered.connect(self.close)
+
+        tray_menu = QMenu()
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(tray_menu)
 
     def open_settings_window(self):
         self.settings_window = SettingsWindow()
         self.settings_window.show()
+
+    def closeEvent(self, event):
+        event.ignore()  # Ignore the close event
+        self.hide()  # Instead, hide the window
+
+    def close(self):
+        self.tray_icon.setVisible(False)  # Hide the tray icon before exiting
+        sys.exit(0)  # Exit the application
 
 
 class SettingsWindow(QDialog):
@@ -105,6 +134,10 @@ class SettingsWindow(QDialog):
                     'ids': settings['ids'],
                     'msg': settings['msg'],
                     'Files': settings['Files']}
+
+        if settings['Keyboard_shortcut']:
+            keyboard.unhook_all()
+            keyboard.add_hotkey(settings['Keyboard_shortcut'], panic)
 
         cfg_use.save_cfg(settings)
 
