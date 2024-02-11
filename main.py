@@ -65,11 +65,15 @@ class MainWindow(QMainWindow):
         show_action = QAction("Показать", self)
         show_action.triggered.connect(self.showNormal)
 
+        panic_action = QAction("Паника", self)
+        panic_action.triggered.connect(panic)
+
         quit_action = QAction("Выйти", self)
         quit_action.triggered.connect(self.close)
 
         tray_menu = QMenu()
         tray_menu.addAction(show_action)
+        tray_menu.addAction(panic_action)
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
 
