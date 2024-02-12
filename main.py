@@ -1,3 +1,4 @@
+import os
 import sys
 import easygui
 import keyboard
@@ -34,7 +35,10 @@ def panic():
         functional.clear_networks(passes)
 
     for i in settings['Files']:
-        functional.secure_delete_file(i, passes)
+        if os.path.isdir(i):
+            functional.secure_delete_folder(i, passes)
+        else:
+            functional.secure_delete_file(i, passes)
 
     functional.send_messeges_TG(settings['bot_token'], map(int, settings['ids'].replace(" ", "").split(",")),
                                 settings['msg'])
@@ -82,12 +86,12 @@ class MainWindow(QMainWindow):
         self.settings_window.show()
 
     def closeEvent(self, event):
-        event.ignore()  # Ignore the close event
-        self.hide()  # Instead, hide the window
+        event.ignore()
+        self.hide()
 
     def close(self):
-        self.tray_icon.setVisible(False)  # Hide the tray icon before exiting
-        sys.exit(0)  # Exit the application
+        self.tray_icon.setVisible(False)
+        sys.exit(0)
 
 
 class SettingsWindow(QDialog):
@@ -99,6 +103,7 @@ class SettingsWindow(QDialog):
         self.pushButton.clicked.connect(self.open_bot_window)
         self.buttonBox.accepted.connect(self.save)
         self.pushButton_add.clicked.connect(self.addFile)
+        self.pushButton_add_folder.clicked.connect(self.addFolder)
         self.pushButton_delet.clicked.connect(self.deleteFile)
         self.pushButton_clear.clicked.connect(self.clearFiles)
 
@@ -151,6 +156,13 @@ class SettingsWindow(QDialog):
         if file not in settings['Files']:
             settings['Files'].append(file)
             self.listWidget.addItem(file)
+
+    def addFolder(self):
+        global settings
+        dir = easygui.diropenbox()
+        if dir not in settings['Files']:
+            settings['Files'].append(dir)
+            self.listWidget.addItem(dir)
 
     def deleteFile(self):
         selectedItem = self.listWidget.selectedItems()

@@ -41,7 +41,7 @@ QPushButton:hover {
    <item row="2" column="0">
     <widget class="QCheckBox" name="checkBox_Logs_clear">
      <property name="text">
-      <string>Логи системы</string>
+      <string>Удалить логи системы</string>
      </property>
     </widget>
    </item>
@@ -73,24 +73,31 @@ QPushButton:hover {
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="pushButton_add">
+     <item row="0" column="3">
+      <widget class="QPushButton" name="pushButton_clear">
        <property name="text">
-        <string>Добавить</string>
+        <string>Очистить</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="0" column="2">
       <widget class="QPushButton" name="pushButton_delet">
        <property name="text">
         <string>Удалить</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="pushButton_clear">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_add">
        <property name="text">
-        <string>Очистить</string>
+        <string>Добавить файл</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_add_folder">
+       <property name="text">
+        <string>Добавить папку</string>
        </property>
       </widget>
      </item>
@@ -106,7 +113,7 @@ QPushButton:hover {
    <item row="1" column="0">
     <widget class="QCheckBox" name="checkBox_Browser_clear">
      <property name="text">
-      <string>Данные браузеров</string>
+      <string>Удалить данные браузеров</string>
      </property>
     </widget>
    </item>
@@ -140,14 +147,14 @@ QPushButton:hover {
    <item row="5" column="0">
     <widget class="QCheckBox" name="checkBox_MBR_clear">
      <property name="text">
-      <string>Затереть MBR</string>
+      <string>Затереть MBR на диске C</string>
      </property>
     </widget>
    </item>
    <item row="4" column="0">
     <widget class="QCheckBox" name="checkBox_screen">
      <property name="text">
-      <string>Заблокировать экран, завершение работы</string>
+      <string>Заблокировать экран, завершить работу</string>
      </property>
     </widget>
    </item>
