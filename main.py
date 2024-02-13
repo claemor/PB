@@ -153,14 +153,14 @@ class SettingsWindow(QDialog):
     def addFile(self):
         global settings
         file = easygui.fileopenbox()
-        if file not in settings['Files']:
+        if file not in settings['Files'] and file is not None:
             settings['Files'].append(file)
             self.listWidget.addItem(file)
 
     def addFolder(self):
         global settings
         dir = easygui.diropenbox()
-        if dir not in settings['Files']:
+        if dir not in settings['Files'] and dir is not None:
             settings['Files'].append(dir)
             self.listWidget.addItem(dir)
 
